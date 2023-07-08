@@ -7,16 +7,19 @@ import { AuthModule } from './auth/auth.module';
 import { PassportModule } from '@nestjs/passport';
 import { NumbersModule } from './numbers/numbers.module';
 import { Session } from './typeorm/entities/Session';
+import { config } from 'dotenv';
+
+config();
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '',
-      database: 'learn_nestjs',
+      type: 'postgres',
+      host: process.env.DB_HOST,
+      port: 5432,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB,
       entities: [User, Number, Session],
       synchronize: true,
     }),
